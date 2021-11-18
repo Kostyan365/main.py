@@ -24,8 +24,8 @@ def new_base():
                     hydrophilous BOOLEAN,
                     coord_x INT,
                     coord_y INT,
-                    period1 TEXT,
-                    period2 TEXT,
+                    period1 INT,
+                    period2 INT,
                     recommended_date TEXT,
                     temperature INT,
                     state BOOLEAN,
@@ -42,8 +42,9 @@ def new_base():
         pass
 
 
-def save_base(ident,name=t, super_class=t, main_class=t, child_class=t, growing_season=t, hybrid=t, thermophilic=t,
-              light_loving=t, hydrophilous=t, coord_x=t, coord_y=t,period1=t,period2=t, recommended_date=t, temperature=t, state=t,
+def save_base(ident, name=t, super_class=t, main_class=t, child_class=t, growing_season=t, hybrid=t, thermophilic=t,
+              light_loving=t, hydrophilous=t, coord_x=t, coord_y=t, period1=t, period2=t, recommended_date=t,
+              temperature=t, state=t,
               fact_date=t, comment=t, path_img=t):
     try:
 
@@ -52,7 +53,7 @@ def save_base(ident,name=t, super_class=t, main_class=t, child_class=t, growing_
         cur = conn.cursor()
         config.read('conf.ini')
         tmp = (ident, name, super_class, main_class, child_class, growing_season, hybrid, thermophilic,
-               light_loving, hydrophilous, coord_x, coord_y, recommended_date, temperature, state,
+               light_loving, hydrophilous, coord_x, coord_y, period1, period2, recommended_date, temperature, state,
                fact_date, comment, path_img)
         req = """INSERT INTO vegetable (id, name, super_class, main_class, child_class, growing_season,
         hybrid, thermophilic, light_loving, hydrophilous, coord_x, coord_y, period1, period2, recommended_date, temperature, state,

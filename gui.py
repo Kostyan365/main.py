@@ -14,12 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1272, 951)
+        MainWindow.resize(542, 592)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.graphicsView = QChartView(self.centralwidget)
-        self.graphicsView.setGeometry(QtCore.QRect(10, 680, 1201, 171))
-        self.graphicsView.setObjectName("graphicsView")
         self.gridLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
         self.gridLayoutWidget_2.setGeometry(QtCore.QRect(10, 10, 528, 535))
         self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
@@ -86,6 +83,7 @@ class Ui_MainWindow(object):
         self.del_Button.setObjectName("del_Button")
         self.horizontalLayout_2.addWidget(self.del_Button)
         self.change_Button = QtWidgets.QPushButton(self.gridLayoutWidget_2)
+        self.change_Button.setEnabled(False)
         self.change_Button.setMinimumSize(QtCore.QSize(100, 100))
         self.change_Button.setMaximumSize(QtCore.QSize(100, 100))
         self.change_Button.setObjectName("change_Button")
@@ -103,7 +101,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addWidget(self.label_13, 9, 0, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.foto4 = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.foto4 = Clickedfoto(self.gridLayoutWidget_2)
         self.foto4.setMinimumSize(QtCore.QSize(100, 100))
         self.foto4.setMaximumSize(QtCore.QSize(100, 100))
         self.foto4.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -112,7 +110,7 @@ class Ui_MainWindow(object):
         self.foto4.setScaledContents(True)
         self.foto4.setObjectName("foto4")
         self.horizontalLayout.addWidget(self.foto4)
-        self.foto3 = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.foto3 = Clickedfoto(self.gridLayoutWidget_2)
         self.foto3.setMinimumSize(QtCore.QSize(100, 100))
         self.foto3.setMaximumSize(QtCore.QSize(100, 100))
         self.foto3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -121,7 +119,7 @@ class Ui_MainWindow(object):
         self.foto3.setScaledContents(True)
         self.foto3.setObjectName("foto3")
         self.horizontalLayout.addWidget(self.foto3)
-        self.foto2 = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.foto2 = Clickedfoto(self.gridLayoutWidget_2)
         self.foto2.setMinimumSize(QtCore.QSize(100, 100))
         self.foto2.setMaximumSize(QtCore.QSize(100, 100))
         self.foto2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -130,7 +128,7 @@ class Ui_MainWindow(object):
         self.foto2.setScaledContents(True)
         self.foto2.setObjectName("foto2")
         self.horizontalLayout.addWidget(self.foto2)
-        self.foto1 = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.foto1 = Clickedfoto(self.gridLayoutWidget_2)
         self.foto1.setMinimumSize(QtCore.QSize(100, 100))
         self.foto1.setMaximumSize(QtCore.QSize(100, 100))
         self.foto1.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -140,6 +138,7 @@ class Ui_MainWindow(object):
         self.foto1.setObjectName("foto1")
         self.horizontalLayout.addWidget(self.foto1)
         self.pushButton_4 = QtWidgets.QPushButton(self.gridLayoutWidget_2)
+        self.pushButton_4.setEnabled(False)
         self.pushButton_4.setMinimumSize(QtCore.QSize(100, 100))
         self.pushButton_4.setMaximumSize(QtCore.QSize(100, 100))
         self.pushButton_4.setAutoRepeat(False)
@@ -157,16 +156,14 @@ class Ui_MainWindow(object):
         self.label_14.setObjectName("label_14")
         self.horizontalLayout_3.addWidget(self.label_14)
         self.pushButton_5 = QtWidgets.QPushButton(self.gridLayoutWidget_2)
+        self.pushButton_5.setEnabled(False)
         self.pushButton_5.setMaximumSize(QtCore.QSize(100, 16777215))
         self.pushButton_5.setObjectName("pushButton_5")
         self.horizontalLayout_3.addWidget(self.pushButton_5)
         self.gridLayout_3.addLayout(self.horizontalLayout_3, 13, 0, 1, 1)
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(550, 30, 201, 23))
-        self.pushButton.setObjectName("pushButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1272, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 542, 21))
         self.menubar.setObjectName("menubar")
         self.menu = QtWidgets.QMenu(self.menubar)
         self.menu.setObjectName("menu")
@@ -178,6 +175,9 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.action = QtWidgets.QAction(MainWindow)
         self.action.setObjectName("action")
+        self.action_2 = QtWidgets.QAction(MainWindow)
+        self.action_2.setObjectName("action_2")
+        self.menu.addAction(self.action_2)
         self.menu_2.addAction(self.action)
         self.menubar.addAction(self.menu.menuAction())
         self.menubar.addAction(self.menu_2.menuAction())
@@ -187,7 +187,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Vegetables"))
         self.label_5.setText(_translate("MainWindow", "Овощи отсутствуют"))
         self.label_16.setText(_translate("MainWindow", "Коментарий:"))
         self.add_Button.setText(_translate("MainWindow", "Добавить\n"
@@ -202,11 +202,11 @@ class Ui_MainWindow(object):
         self.label_14.setText(_translate("MainWindow", "Высажено"))
         self.pushButton_5.setText(_translate("MainWindow", "Посадить\n"
 "семена"))
-        self.pushButton.setText(_translate("MainWindow", "Очистить базу"))
         self.menu.setTitle(_translate("MainWindow", "Файл"))
         self.menu_2.setTitle(_translate("MainWindow", "Справка"))
         self.action.setText(_translate("MainWindow", "О программе"))
-from PyQt5.QtChart import QChartView
+        self.action_2.setText(_translate("MainWindow", "Очистить базу"))
+from modules.click_label import Clickedfoto
 
 
 if __name__ == "__main__":
