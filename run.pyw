@@ -2,7 +2,7 @@ import sys
 import gui
 import gui2
 from modules.basedate import save_base as sb, new_base, number_of_rows as nr, list_all_id as lai, \
-    instance as inst, del_v
+    instance as inst, del_v, plain, foto_list_path as flp, foto_update as fu
 from PyQt5.QtTextToSpeech import QTextToSpeech
 from PyQt5.QtCore import Qt, pyqtSignal, QSize, pyqtSlot, QDate
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QWidget, QFileDialog, QMessageBox, QScrollArea, \
@@ -117,6 +117,10 @@ class SecondWindow(QMainWindow):
             ident = 1
         else:
             ident = LIST_ID[-1] + 1
+        if self.list_path == {}:
+            path_image = str(["no-photo-60.png", "no-photo-60.png", "no-photo-60.png", "no-photo-60.png"])
+        else:
+            path_image = str(list(self.list_path.keys()))
         if sb(ident=ident,
               name=self.ui.lineEdit_5.text(),
               super_class=self.ui.comboBox.currentText(),
@@ -136,7 +140,7 @@ class SecondWindow(QMainWindow):
               state=self.ui.checkBox_10.isChecked(),
               fact_date=self.ui.dateEdit_4.date().toString(Qt.ISODate),
               comment=self.ui.textEdit.toPlainText(),
-              path_img=str(list(self.list_path.keys()))
+              path_img=path_image
               ):
 
             if self.list_path:
@@ -211,6 +215,8 @@ class MyWidget(QMainWindow):
         self.ui.setupUi(self)
         self.ui.add_Button.clicked.connect(self.show_window_2)  # Выводим окно ввода
         self.ui.del_Button.clicked.connect(self.del_vegetable)  # Удаляем экземпляр расстения из базы
+        self.ui.pushButton_5.clicked.connect(self.plant_seeds)  # Высаживаем семена
+        self.ui.pushButton_4.clicked.connect(self.add_foto)
         self.ui.button_right.setIcon(QIcon('resources/arrowright_1244.png'))
         self.ui.button_right.setIconSize(QSize(100, 100))
         self.ui.button_right.clicked.connect(self.right)
@@ -222,7 +228,7 @@ class MyWidget(QMainWindow):
         self.lb = QLabel()
         self.stBar.insertPermanentWidget(0, self.lb)
         self.signal.emit(str(nr()))  # FIXME:
-        self.blocking()    # FIXME:
+        self.blocking()  # FIXME:
         # self.chart = Chart()  # FIXME:
         # self.ui.graphicsView.setChart(self.chart)
         self.ui.action_2.triggered.connect(partial(self.del_all))
@@ -238,8 +244,28 @@ class MyWidget(QMainWindow):
         # eval(f"self.ui.foto{data}.pixmap()")
         self.viewer.show()
 
+    def add_foto(self):
+        tmp = flp(self.current_vegetable)
+        if tmp:
+            if 'no-photo-60.png' in tmp:
+                image_path = QFileDialog.getOpenFileName(self, 'Выбрать файл изображения', '/vegetable')[0]
+                if image_path:
+                    image_name = image_path.split("/")[-1]
+                    shutil.copy(image_path, f"image/{image_name}")  # Копируем изображения
+                    tmp.insert(0, image_name)
+                    tmp.pop(-1)
+                    fu(tmp, self.current_vegetable)
+                    self.wiew()
+
     def show_window_2(self):
         self.w2.show()
+
+    def plant_seeds(self):
+        if plain(self.current_vegetable):
+            self.ui.label_14.setText('Высажено')
+            self.ui.pushButton_5.setEnabled(False)
+        else:
+            self.signal2.emit("Не удалось высадить семена")
 
     def wiew(self):
         if self.current_vegetable in LIST_ID:
@@ -267,13 +293,13 @@ class MyWidget(QMainWindow):
             self.ui.label_9.setText(f'Рекомендуемая производителем дата посадки семян на рассаду: {data[14]}')
             self.ui.label_10.setText(f'Фактическая дата посадки семян:  {data[17]}')
             self.ui.label_13.setText(f'Схема посадки {data[10]} x {data[11]}')
-            self.ui.label_15.setText(f'Оптимальная для прорастания семян температура почвы: {data[13]}°C')
-            if data[14]:
-                self.ui.label_15.setText('Высажено')
-                self.ui.pushButton_5.setEnabled(True)
-            else:
-                self.ui.label_15.setText('Ожидает высадки')
+            self.ui.label_15.setText(f'Оптимальная для прорастания семян температура почвы: {data[15]}°C')
+            if data[16]:
+                self.ui.label_14.setText('Высажено')
                 self.ui.pushButton_5.setEnabled(False)
+            else:
+                self.ui.label_14.setText('Ожидает высадки')
+                self.ui.pushButton_5.setEnabled(True)
             self.ui.textEdit.setPlainText(data[18])
             x = eval(data[19])
             if len(x) == 0:
@@ -301,6 +327,10 @@ class MyWidget(QMainWindow):
                 self.ui.foto2.setPixmap(QPixmap(f"image/{x[1]}"))
                 self.ui.foto3.setPixmap(QPixmap(f"image/{x[2]}"))
                 self.ui.foto4.setPixmap(QPixmap(f"image/{x[3]}"))
+            if 'no-photo-60.png' in x:
+                self.ui.pushButton_4.setEnabled(True)
+            else:
+                self.ui.pushButton_4.setEnabled(False)
 
     def left(self, data=False):
         if (self.current_vegetable > min(LIST_ID)) or data:
