@@ -377,6 +377,7 @@ class MyWidget(QMainWindow):
                 self.config['DEFAULT']['id'] = str(1)
                 with open('conf.ini', 'w') as configfile:
                     self.config.write(configfile)
+
                 QApplication.quit()
             else:
                 self.signal2.emit("Ошибка удаления базы")
