@@ -115,3 +115,39 @@ def del_v(data):
         return True
     except:
         return False
+
+
+def plain(data):
+    try:
+        conn = sqlite3.connect('.//base_date/vegetables.db')
+        cur = conn.cursor()
+        tmp = cur.execute(f"UPDATE vegetable SET state = 1 WHERE id={data}")
+        conn.commit()
+        conn.close()
+        return True
+    except:
+        return False
+
+
+def foto_list_path(data):
+    try:
+        conn = sqlite3.connect('.//base_date/vegetables.db')
+        cur = conn.cursor()
+        tmp = cur.execute(f"SELECT path_img FROM vegetable WHERE id={data}").fetchall()
+        conn.close()
+        tmp = eval(tmp[0][0])
+        return tmp
+    except:
+        return False
+
+
+def foto_update(data, id):
+    try:
+        conn = sqlite3.connect('.//base_date/vegetables.db')
+        cur = conn.cursor()
+        tmp = f"""update vegetable set path_img = "{data}" where id = {id}"""
+        cur.execute(tmp)
+        conn.commit()
+        conn.close()
+    except:
+        return False

@@ -2,28 +2,21 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1272</width>
-    <height>951</height>
+    <width>556</width>
+    <height>590</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Vegetables</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QChartView" name="graphicsView">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>680</y>
-      <width>1201</width>
-      <height>171</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
@@ -82,7 +75,11 @@
       </widget>
      </item>
      <item row="12" column="0">
-      <widget class="QTextEdit" name="textEdit"/>
+      <widget class="QTextEdit" name="textEdit">
+       <property name="textInteractionFlags">
+        <set>Qt::NoTextInteraction</set>
+       </property>
+      </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_2">
@@ -171,6 +168,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="change_Button">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="minimumSize">
           <size>
            <width>100</width>
@@ -220,7 +220,7 @@
      <item row="14" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLabel" name="foto4">
+        <widget class="Clickedfoto" name="foto4">
          <property name="minimumSize">
           <size>
            <width>100</width>
@@ -248,7 +248,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="foto3">
+        <widget class="Clickedfoto" name="foto3">
          <property name="minimumSize">
           <size>
            <width>100</width>
@@ -276,7 +276,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="foto2">
+        <widget class="Clickedfoto" name="foto2">
          <property name="minimumSize">
           <size>
            <width>100</width>
@@ -304,7 +304,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="foto1">
+        <widget class="Clickedfoto" name="foto1">
          <property name="minimumSize">
           <size>
            <width>100</width>
@@ -333,6 +333,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_4">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="minimumSize">
           <size>
            <width>100</width>
@@ -383,6 +386,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_5">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="maximumSize">
           <size>
            <width>100</width>
@@ -399,26 +405,13 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>550</x>
-      <y>30</y>
-      <width>201</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Очистить базу</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1272</width>
+     <width>556</width>
      <height>21</height>
     </rect>
    </property>
@@ -426,6 +419,7 @@
     <property name="title">
      <string>Файл</string>
     </property>
+    <addaction name="action_2"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -442,12 +436,17 @@
     <string>О программе</string>
    </property>
   </action>
+  <action name="action_2">
+   <property name="text">
+    <string>Очистить базу</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QChartView</class>
-   <extends>QGraphicsView</extends>
-   <header>PyQt5.QtChart</header>
+   <class>Clickedfoto</class>
+   <extends>QLabel</extends>
+   <header>modules.click_label</header>
   </customwidget>
  </customwidgets>
  <resources/>
